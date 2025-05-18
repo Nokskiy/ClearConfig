@@ -51,17 +51,12 @@ namespace ClearConfig
         {
             for (int line = 0; line < ConfigParser.GetLinesCount(); line++)
             {
-                var lineText = await ConfigParser.GetAllTextInLine(line);
-                if (ConfigParser.GetCommand(lineText) == "link")
+                string lineText = await ConfigParser.GetAllTextInLine(line);
+                string value = ConfigParser.GetValue(lineText);
+                string fileName = Path.GetFileName(value);
+                if (ConfigParser.GetCommand(lineText) == "link" && Path.Exists(value) && fileName == "ClearConfig.config")
                 {
-                    if (Path.GetFileName(ConfigParser.GetValue(lineText)) == "ClearConfig.config" &&
-                    Path.Exists(ConfigParser.GetValue(lineText)))
-                    {
-                        for (int lineInConfig = 0; lineInConfig < ConfigParser.GetLinesCount(ConfigParser.GetValue(lineText)); lineInConfig++)
-                        {
-                            string command = ConfigParser.GetCommand(await ConfigParser.GetAllTextInLine(ConfigParser.GetValue(lineText)));
-                        }
-                    }
+                    
                 }
             }
         }
