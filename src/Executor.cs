@@ -14,13 +14,50 @@ namespace ClearConfig
             for (int line = 0; line < ConfigParser.GetLinesCount(); line++)
             {
                 var lineText = await ConfigParser.GetAllTextInLine(line);
-                if (ConfigParser.GetCommand(lineText) == "link")
+                if (ConfigParser.GetType(lineText) == "link")
                 {
                     _links.Add(ConfigParser.GetValue(lineText));
                 }
             }
-            if(print)
+            if (print)
                 PrintLinks();
+        }
+
+        public static async Task Remove()
+        {
+            for (int line = 0; line < ConfigParser.GetLinesCount(); line++)
+            {
+                string lineText = await ConfigParser.GetAllTextInLine(line);
+                string value = ConfigParser.GetValue(lineText);
+                string fileName = Path.GetFileName(value);
+
+                if (ConfigParser.GetType(lineText) != "link" || !Path.Exists(value) || fileName != "ClearConfig.config") continue;
+
+                for (int lineInConfig = 0; lineInConfig < ConfigParser.GetLinesCount(value); lineInConfig++)
+                {
+                    string configLineText = await ConfigParser.GetAllTextInLine(lineInConfig, value);
+                    string condition = ConfigParser.GetType(configLineText);
+                    string configValue = ConfigParser.GetValue(configLineText);
+
+                    switch (condition)
+                    {
+                        case "extension":
+                            RemoveByExtenition(configValue,Path.GetDirectoryName(value) ?? "");
+                            break;
+                    }
+                }
+            }
+        }
+
+        private static void RemoveByExtenition(string extenition, string configPath)
+        {
+            foreach (var i in Directory.GetFiles(configPath))
+            {
+                if (Path.GetExtension(i) == extenition)
+                {
+                    File.Delete(i);
+                }
+            }
         }
 
         private static void PrintLinks()

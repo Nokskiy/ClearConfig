@@ -43,10 +43,11 @@ namespace ClearConfig
             return Regex.Split(text, "\\s");
         }
 
-        public static string GetCommand(string text)
+        public static string GetType(string text)
         {
             return SplitToWords(text)[0];
         }
+
         public static string GetValue(string text)
         {
             return SplitToWords(text)[1];
