@@ -45,12 +45,12 @@ namespace ClearConfig
 
         public static string GetType(string text)
         {
-            return SplitToWords(text)[0];
+            return SplitToWords(text)[0].ToLower();
         }
 
         public static string GetValue(string text)
         {
-            return SplitToWords(text)[1];
+            return SplitToWords(text)[1].ToLower();
         }
     }
 }

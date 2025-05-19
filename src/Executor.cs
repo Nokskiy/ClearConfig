@@ -23,7 +23,7 @@ namespace ClearConfig
                 PrintLinks();
         }
 
-        public static async Task Remove()
+        public static async Task Remove(string config)
         {
             for (int line = 0; line < ConfigParser.GetLinesCount(); line++)
             {
@@ -31,20 +31,34 @@ namespace ClearConfig
                 string value = ConfigParser.GetValue(lineText);
                 string fileName = Path.GetFileName(value);
 
-                if (ConfigParser.GetType(lineText) != "link" || !Path.Exists(value) || fileName != "ClearConfig.config") continue;
-
-                for (int lineInConfig = 0; lineInConfig < ConfigParser.GetLinesCount(value); lineInConfig++)
+                if (config == "")
                 {
-                    string configLineText = await ConfigParser.GetAllTextInLine(lineInConfig, value);
-                    string condition = ConfigParser.GetType(configLineText);
-                    string configValue = ConfigParser.GetValue(configLineText);
+                    await WorkWithLink(false);
+                }
+                else if (config == value)
+                {
+                    await WorkWithLink(true);
+                }
 
-                    switch (condition)
+                async Task WorkWithLink(bool withConfig)
+                {
+                    if (ConfigParser.GetType(lineText) != "link" || !Path.Exists(value) || fileName != "ClearConfig.config")
                     {
-                        case "extension":
-                            RemoveByExtenition(configValue,Path.GetDirectoryName(value) ?? "");
-                            break;
+                        for (int lineInConfig = 0; lineInConfig < ConfigParser.GetLinesCount(value); lineInConfig++)
+                        {
+                            string configLineText = await ConfigParser.GetAllTextInLine(lineInConfig, value);
+                            string condition = ConfigParser.GetType(configLineText);
+                            string configValue = ConfigParser.GetValue(configLineText);
+
+                            switch (condition)
+                            {
+                                case "extension":
+                                    RemoveByExtenition(configValue, Path.GetDirectoryName(value) ?? "");
+                                    break;
+                            }
+                        }
                     }
+                    
                 }
             }
         }

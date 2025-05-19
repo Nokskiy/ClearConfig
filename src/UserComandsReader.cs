@@ -2,55 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ClearConfig.src;
+using ClearConfig.src.Commands;
 
 namespace ClearConfig
 {
     public class UserComandsReader
     {
-        private static Dictionary<string, string> _commandList = new Dictionary<string, string>()
+        public static Dictionary<string, string> commandList { get; } = new Dictionary<string, string>()
         {
             {"help","prints all commands"},
-            {"update links","updates the list of links"},
+            {"update_links","updates the list of links"},
             {"remove", "deletes everything from config files"}
         };
-        public static async Task DoCommand(string cmd)
+        public static async Task DoCommand(string line)
         {
+            var cmd = CommandParser.GetElementOfCommand(line, 0);
             switch (cmd)
             {
                 case "help":
-                    Help();
+                    await new CommandHelp(line).RunExecution();
                     break;
-                case "update links":
-                    await UpdateLinks(true);
+                case "update_links":
+                    await new CommandUpdateLinks(line).RunExecution();
                     break;
                 case "remove":
-                    await Remove();
+                    await new CommandRemove(line).RunExecution();
                     break;
                 default:
                     Error();
                     break;
             }
-        }
-
-        private static void Help()
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            foreach (var i in _commandList)
-            {
-                Console.WriteLine(i.Key + " - " + i.Value);
-            }
-            Console.WriteLine();
-            Console.ResetColor();
-        }
-
-        private static async Task UpdateLinks(bool print = false)
-        {
-            await Executor.GetLinks(print);
-        }
-
-        private static async Task Remove()
-        {
-            await Executor.Remove();
         }
 
         private static void Error()
