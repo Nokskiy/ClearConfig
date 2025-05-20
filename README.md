@@ -1,5 +1,10 @@
 # ClearConfig
 
+![Static Badge](https://img.shields.io/badge/MIT-blue?label=License)
+![Static Badge](https://img.shields.io/badge/C%23-green?label=Language)
+
+
+
 > [!IMPORTANT]
 > **Early Development Notice**
 > The program is currently in active development. Features and documentation may change.
