@@ -28,8 +28,10 @@ The purpose of this project is to enable fast deletion of files from the device 
 >
 > ### Config
 > #### File in same directory
+> 
 > The file, located in the same directory as the program, must have the following 
 > content type:
+>
 > ```link C:\Example1\ClearConfig.config```
 >
 > ```link C:\Example2\ClearConfig.config```
