@@ -1,46 +1,58 @@
 # ClearConfig
+
 > [!IMPORTANT]
-> The program is in the early stages of development
+> **Early Development Notice**
+> The program is currently in active development. Features and documentation may change.
 
-> [!TIP]
-> - [About](#about)
-> - [How to use](#how-to-use)
->   - [CMD](#cmd)
->   - [Config](#config)
->     - [FISD](#file-in-same-directory)
->     - [Config](#config-1)
+---
 
-## About
+## 📌 Table of Contents
+- [📖 About](#-about)
+- [🚀 Getting Started](#-getting-started)
+  - [Command Line Usage](#-command-line-usage)
+  - [Configuration Guide](#-configuration-guide)
+- [🤝 Contributing](#-contributing)
+- [🐛 Issue Reporting](#-issue-reporting)
 
-The purpose of this project is to enable fast deletion of files from the device as specified in the config
+---
 
-## How to use
+## 📖 About
 
-> [!TIP]
-> ### CMD
->
-> - ```help``` - shows a list of commands and a short description
->   - doesn't matter
-> - ```update_links``` - updates links to configs
->   - list all links (true/false)
-> - ```remove``` deletes everything from config files
->   - link to config (link)
->
-> ### Config
-> #### File in same directory
-> 
-> The file, located in the same directory as the program, must have the following 
-> content type:
->
-> ```link C:\Example1\ClearConfig.config```
->
-> ```link C:\Example2\ClearConfig.config```
->
-> #### Config
->
-> Configuration example
->
-> ```extension .png```
->
-> Types:
-> - ```extension``` accepts the extension of files to be deleted
+ClearConfig is a lightweight utility designed for **fast, configurable file deletion**. Specify file patterns in simple config files, and let ClearConfig handle the cleanup efficiently.
+
+---
+
+## 🚀 Getting Started
+
+### 💻 Command Line Usage
+
+| Command        | Description                          | Parameters               |
+|----------------|--------------------------------------|--------------------------|
+| `help`         | Show all available commands          | -                        |
+| `update_links` | Refresh config file references       | `list_all` (true/false)  |
+| `remove`       | Execute deletion from config files   | `config_path` (optional) |
+------------------------------------------------------------------------------------
+
+**Example:**
+```remove C:\Example\ClearConfig.config```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+---
+
+## 🐛 Issue Reporting
+
+Found a bug? Please **help** us by:
+1. Checking existing issues to avoid duplicates
+2. Providing detailed steps to reproduce
+3. Including your OS/environment details
+4. Describing expected vs actual behavior
