@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ClearConfig.src.Commands
 {
-    public class CommandRemove : Command
+    public class CommandRemoveRecursive : Command
     {
-        public CommandRemove(string commandLine) : base(commandLine) { }
+        public CommandRemoveRecursive(string commandLine) : base(commandLine) { }
 
         protected override async Task Execution()
         {
@@ -17,7 +17,7 @@ namespace ClearConfig.src.Commands
             {
                 config = base.elements[1];
             }
-            await Executor.Remove(config, false);
+            await Executor.Remove(config, true);
         }
     }
 }

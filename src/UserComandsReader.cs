@@ -13,7 +13,8 @@ namespace ClearConfig
         {
             {"help","prints all commands"},
             {"update_links","updates the list of links"},
-            {"remove", "deletes everything from config files"}
+            {"remove", "deletes everything from config files"},
+            {"remove_rec", "deletes everything from config files recursive"}
         };
         public static async Task DoCommand(string line)
         {
@@ -28,6 +29,9 @@ namespace ClearConfig
                     break;
                 case "remove":
                     await new CommandRemove(line).RunExecution();
+                    break;
+                case "remove_rec":
+                    await new CommandRemoveRecursive(line).RunExecution();
                     break;
                 default:
                     Error();

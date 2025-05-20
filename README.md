@@ -31,12 +31,13 @@ ClearConfig is a lightweight utility designed for **fast, configurable file dele
 
 ### 💻 Command Line Usage
 
-| Command        | Description                          | Parameters               |
-|----------------|--------------------------------------|--------------------------|
-| `help`         | Show all available commands          | -                        |
-| `update_links` | Refresh config file references       | `list_all` (true/false)  |
-| `remove`       | Execute deletion from config files   | `config_path` (optional) |
-------------------------------------------------------------------------------------
+| Command        | Description                                   | Parameters               |
+|----------------|-----------------------------------------------|--------------------------|
+| `help`         | Show all available commands                   | -                        |
+| `update_links` | Refresh config file references                | `list_all` (true/false)  |
+| `remove`       | Execute deletion from config files            | `config_path` (optional) |
+| `remove_rec`   | Execute deletion from config files  recursive | `config_path` (optional) |
+---------------------------------------------------------------------------------------------
 
 **Example:**
 ```remove C:\Example\ClearConfig.config```

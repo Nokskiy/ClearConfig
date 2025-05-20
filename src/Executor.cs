@@ -23,7 +23,7 @@ namespace ClearConfig
                 PrintLinks();
         }
 
-        public static async Task Remove(string config)
+        public static async Task Remove(string config, bool recursive)
         {
             for (int line = 0; line < ConfigParser.GetLinesCount(); line++)
             {
@@ -53,7 +53,8 @@ namespace ClearConfig
                             switch (condition)
                             {
                                 case "extension":
-                                    RemoveByExtenition(configValue, Path.GetDirectoryName(value) ?? "");
+                                    if (!recursive) RemoveByExtenition(configValue, Path.GetDirectoryName(value) ?? "");
+                                    else RemoveByExtenitionRecursive(configValue, Path.GetDirectoryName(value) ?? "");
                                     break;
                             }
                         }
@@ -65,12 +66,26 @@ namespace ClearConfig
 
         private static void RemoveByExtenition(string extenition, string configPath)
         {
-            foreach (var i in Directory.GetFiles(configPath))
+            foreach (var file in Directory.GetFiles(configPath))
             {
-                if (Path.GetExtension(i) == extenition)
+                if (Path.GetExtension(file) == extenition)
                 {
-                    File.Delete(i);
+                    File.Delete(file);
                 }
+            }
+        }
+        private static void RemoveByExtenitionRecursive(string extenition, string configPath)
+        {
+            foreach (var dir in Directory.GetDirectories(configPath))
+            {
+                foreach (var file in Directory.GetFiles(configPath))
+                {
+                    if (Path.GetExtension(file) == extenition)
+                    {
+                        File.Delete(file);
+                    }
+                }
+                RemoveByExtenition(extenition,dir);
             }
         }
 
