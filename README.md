@@ -2,8 +2,8 @@
 
 ![Static Badge](https://img.shields.io/badge/MIT-blue?label=License)
 ![Static Badge](https://img.shields.io/badge/C%23-green?label=Language)
-
-
+![GitHub last commit](https://img.shields.io/github/last-commit/Nokskiy/ClearConfig)
+![GitHub repo size](https://img.shields.io/github/repo-size/Nokskiy/ClearConfig)
 
 > [!IMPORTANT]
 > **Early Development Notice**
