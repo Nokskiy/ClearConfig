@@ -14,7 +14,7 @@ namespace ClearConfig
         {
             path = path == "" ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ClearConfig.config" : path;
             path = Path.GetFullPath(path);
-            return await File.ReadAllTextAsync(path);
+            return await File.ReadAllTextAsync(path) ?? "";
         }
 
         public static short GetLinesCount(string path = "")
@@ -28,14 +28,14 @@ namespace ClearConfig
         {
             path = path == "" ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ClearConfig.config" : path;
             path = Path.GetFullPath(path);
-            return (await File.ReadAllLinesAsync(path))[line];
+            return (await File.ReadAllLinesAsync(path))[line] ?? "";
         }
 
         public static async Task<string> GetAllTextInLine(int line = 0, string path = "")
         {
             path = path == "" ? Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\ClearConfig.config" : path;
             path = Path.GetFullPath(path);
-            return (await File.ReadAllLinesAsync(path))[line];
+            return (await File.ReadAllLinesAsync(path))[line] ?? "";
         }
 
         public static string[] SplitToWords(string text)
@@ -45,12 +45,19 @@ namespace ClearConfig
 
         public static string GetType(string text)
         {
-            return SplitToWords(text)[0].ToLower();
+            return SplitToWords(text)[0].ToLower() ?? "";
         }
 
         public static string GetValue(string text)
         {
-            return SplitToWords(text)[1].ToLower();
+            if (SplitToWords(text).Length > 1)
+            {
+                return SplitToWords(text)[1].ToLower();
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }

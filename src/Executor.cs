@@ -33,14 +33,14 @@ namespace ClearConfig
 
                 if (config == "")
                 {
-                    await WorkWithLink(false);
+                    await WorkWithLink();
                 }
                 else if (config == value)
                 {
-                    await WorkWithLink(true);
+                    await WorkWithLink();
                 }
 
-                async Task WorkWithLink(bool withConfig)
+                async Task WorkWithLink()
                 {
                     if (ConfigParser.GetType(lineText) != "link" || !Path.Exists(value) || fileName != "ClearConfig.config")
                     {
@@ -48,44 +48,54 @@ namespace ClearConfig
                         {
                             string configLineText = await ConfigParser.GetAllTextInLine(lineInConfig, value);
                             string condition = ConfigParser.GetType(configLineText);
+
                             string configValue = ConfigParser.GetValue(configLineText);
+
+                            string configDirectoryPath = Path.GetDirectoryName(value) ?? "";
 
                             switch (condition)
                             {
-                                case "extension":
-                                    if (!recursive) RemoveByExtenition(configValue, Path.GetDirectoryName(value) ?? "");
-                                    else RemoveByExtenitionRecursive(configValue, Path.GetDirectoryName(value) ?? "");
+                                case "fe":
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    if (!recursive) RemoveByExtenition(configValue, configDirectoryPath);
+                                    else await RemoveByExtenitionRecursive(configValue, configDirectoryPath);
+                                    Console.ResetColor();
+                                    break;
+                                default:
                                     break;
                             }
                         }
                     }
-                    
                 }
             }
         }
 
-        private static void RemoveByExtenition(string extenition, string configPath)
+        private static void RemoveByExtenition(string extenition, string configDir)
         {
-            foreach (var file in Directory.GetFiles(configPath))
+            foreach (var file in Directory.GetFiles(configDir))
+            {
+                if (Path.GetExtension(file) == extenition)
+                {
+                    Console.WriteLine(file);
+                    File.Delete(file);
+                }
+            }
+        }
+
+        private static async Task RemoveByExtenitionRecursive(string extenition, string configDir)
+        {
+            foreach (var file in Directory.GetFiles(configDir))
             {
                 if (Path.GetExtension(file) == extenition)
                 {
                     File.Delete(file);
                 }
             }
-        }
-        private static void RemoveByExtenitionRecursive(string extenition, string configPath)
-        {
-            foreach (var dir in Directory.GetDirectories(configPath))
+
+            foreach (var dir in Directory.GetDirectories(configDir))
             {
-                foreach (var file in Directory.GetFiles(configPath))
-                {
-                    if (Path.GetExtension(file) == extenition)
-                    {
-                        File.Delete(file);
-                    }
-                }
-                RemoveByExtenition(extenition,dir);
+                Console.WriteLine(dir);
+                await RemoveByExtenitionRecursive(extenition, dir);
             }
         }
 

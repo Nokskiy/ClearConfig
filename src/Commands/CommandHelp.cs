@@ -12,7 +12,7 @@ namespace ClearConfig.src
         protected override async Task Execution()
         {
             await base.Execution();
-            
+
             Console.ForegroundColor = ConsoleColor.Green;
             foreach (var i in UserComandsReader.commandList)
             {

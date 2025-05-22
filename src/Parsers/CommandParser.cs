@@ -10,9 +10,9 @@ namespace ClearConfig.src
     {
         public static string GetElementOfCommand(string line, int num)
         {
-            return Regex.Split(line, "\\s")[num];
+            return Regex.Split(line, "\\s")[num] ?? "";
         }
-        
+
         public static int GetElementsOfCommandCount(string line)
         {
             return Regex.Split(line, "\\s").Length;

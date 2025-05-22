@@ -10,8 +10,8 @@ namespace ClearConfig
             while (true)
             {
                 await ClearConfigLinksCheckExist();
-                var cmd = Console.ReadLine();
-                await UserComandsReader.DoCommand((cmd ?? "").ToLower());
+                string cmd = Console.ReadLine() ?? "";
+                await UserComandsReader.DoCommand(cmd.ToLower());
             }
         }
 
