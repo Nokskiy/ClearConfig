@@ -5,10 +5,6 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/Nokskiy/ClearConfig)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Nokskiy/ClearConfig)
 
-> [!IMPORTANT]
-> **Early Development Notice**
-> The program is currently in active development. Features and documentation may change.
-
 ---
 
 ## 📌 Table of Contents
